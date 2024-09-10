@@ -13,12 +13,33 @@
         // delete data
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "DELETE FROM table_the_iot_projects  WHERE id = ?";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($id));
-        Database::disconnect();
-        header("Location: user data.php");
-         
+        
+        try {
+            // Begin transaction
+            $pdo->beginTransaction();
+        
+            // First, delete from the child table `report`
+            $sql = "DELETE FROM report WHERE sid = ?";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($id));
+        
+            // Now, delete from the parent table `table_the_iot_projects`
+            $sql = "DELETE FROM table_the_iot_projects WHERE id = ?";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($id));
+        
+            // Commit transaction
+            $pdo->commit();
+        
+            // Redirect to the data page
+            header("Location: user data.php");
+        } catch (Exception $e) {
+            // Rollback in case of an error
+            $pdo->rollBack();
+            echo "Failed: " . $e->getMessage();
+        }
+        
+        Database::disconnect();    
     }
 ?>
  
@@ -27,12 +48,13 @@
 <head>
     <meta charset="utf-8">
     <link   href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="login/images/smart-id.png" rel="icon">
     <script src="js/bootstrap.min.js"></script>
-	<title>ACCESS WAVE CSTroll</title>
+	<title>NFC-Based Student Smart Card</title>
 </head>
  
 <body>
-	<h2 align="center">ACCESS WAVE CSTroll</h2>
+<h2  style="color: olive; text-align: center;">NFC-Based Student Smart Card</h2>
 
     <div class="container">
      

@@ -98,7 +98,7 @@
 			<a  href="login/logout.php">Logout</a></li>
 		</ul>
 		<br>
-		<h3>Welcome to RP-MUSANZE</h3>
+		<h3>Welcome to RP-Musanze College</h3>
 		
 		<img src="img/rpmusanze.jpg" alt="">
 		

@@ -21,6 +21,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="login/images/smart-id.png" rel="icon">
 		<script src="js/bootstrap.min.js"></script>
 		
 		<style>
@@ -76,62 +77,66 @@
 		<div class="container">
      
 			<div class="center" style="margin: 0 auto; width:495px; border-style: solid; border-color: #f2f2f2;">
-				<div class="row">
-					<h3 align="center">Edit User Data</h3>
-					<p id="defaultGender" hidden><?php echo $data['gender'];?></p>
-				</div>
+			
 		 
-				<form class="form-horizontal" action="user data edit tb.php?id=<?php echo $id?>" method="post">
-					<div class="control-group">
-						<label class="control-label">ID</label>
-						<div class="controls">
-							<input name="id" type="text"  placeholder="" value="<?php echo $data['id'];?>" readonly>
-						</div>
+			<form class="form-horizontal" action="user data edit tb.php?id=<?php echo $id ?>" method="post" enctype="multipart/form-data">
+				<div class="control-group">
+					<label class="control-label">ID</label>
+					<div class="controls">
+						<input name="id" type="text" placeholder="" value="<?php echo htmlspecialchars($data['id']); ?>" readonly>
 					</div>
-					
-					<div class="control-group">
-						<label class="control-label">Name</label>
-						<div class="controls">
-							<input name="name" type="text"  placeholder="" value="<?php echo $data['name'];?>" required>
-						</div>
-					</div>
-					
-					<div class="control-group">
-						<label class="control-label">Gender</label>
-						<div class="controls">
-							<select name="gender" id="mySelect">
-								<option value="Male">Male</option>
-								<option value="Female">Female</option>
-							</select>
-						</div>
-					</div>
-					
-					<div class="control-group">
-						<label class="control-label">Email Address</label>
-						<div class="controls">
-							<input name="email" type="text" placeholder="" value="<?php echo $data['email'];?>" required>
-						</div>
-					</div>
-					
-					<div class="control-group">
-						<label class="control-label">Mobile Number</label>
-						<div class="controls">
-							<input name="mobile" type="text"  placeholder="" value="<?php echo $data['mobile'];?>" required>
-						</div>
-					</div>
+				</div>
 
-					<div class="control-group">
-						<label class="control-label">Photo</label>
-						<div class="controls">
-							<input type="file" id="file-input" name="photo" value="<?php echo $data['photo'];?>" class="form-control-file">
-						</div>
+				<div class="control-group">
+					<label class="control-label">Name</label>
+					<div class="controls">
+						<input name="name" type="text" placeholder="" value="<?php echo htmlspecialchars($data['name']); ?>" required>
 					</div>
-					
-					<div class="form-actions">
-						<button type="submit" class="btn btn-success">Update</button>
-						<a class="btn" href="user data.php">Back</a>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">Year Of Study</label>
+					<div class="controls">
+						<select name="year_of_study" id="mySelect" required>
+							<option value="<?php echo $data['year_of_study']; ?>"><?php echo $data['year_of_study']; ?></option>
+							<option value="Year 1">Year 1</option>
+							<option value="Year 2">Year 2</option>
+							<option value="Year 3">Year 3</option>
+							
+						</select>
 					</div>
-				</form>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">Class</label>
+					<div class="controls">
+						<input name="class" type="text" placeholder="" value="<?php echo htmlspecialchars($data['class']); ?>" required>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">Department</label>
+					<div class="controls">
+						<input name="department" type="text" placeholder="" value="<?php echo htmlspecialchars($data['department']); ?>" required>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">Photo</label>
+					<div class="controls">
+						<input type="file" id="file-input" name="photo" class="form-control-file">
+						<br>
+						<!-- Display existing photo -->
+						<img src="<?php echo 'uploads/' . $data['photo']; ?>" alt="Current Photo" width="100">
+					</div>
+				</div>
+
+				<div class="form-actions">
+					<button type="submit" class="btn btn-success">Update</button>
+					<a class="btn" href="user data.php">Back</a>
+				</div>
+			</form>
+
 			</div>               
 		</div> <!-- /container -->	
 		

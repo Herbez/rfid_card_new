@@ -3,7 +3,7 @@
 $dbservername = "localhost";
 $dbusername = "root";
 $dbpassword = "";
-$dbname = "student_card";
+$dbname = "nodemcu_rfid_iot_projects";
 // Create connection
 $conn = mysqli_connect($dbservername, $dbusername, $dbpassword, $dbname);
 // Check connection

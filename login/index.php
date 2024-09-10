@@ -3,7 +3,7 @@
  $message = "";  
  try  
  {   
-      $dbh= new PDO("mysql:host=localhost;dbname=student_card", "root", "");
+      $dbh= new PDO("mysql:host=localhost;dbname=nodemcu_rfid_iot_projects", "root", "");
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
       if(isset($_POST["signin"]))  
       {  

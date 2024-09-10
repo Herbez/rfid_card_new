@@ -29,7 +29,7 @@ char str[32] = "";
 String StrUID;
 
 //----------------------------------------Array to hold registered UIDs--------------------------------------------------------------------------------------------------------------------//
-String registeredUIDs[] = {"D3E8BE42", "034A2C43","83762400"};  // Example of registered UIDs
+String registeredUIDs[] = {"D3E8BE42", "034A2C43","83762400","9364BF42"};  // Example of registered UIDs
 
 //-----------------------------------------------------------------------------------------------SETUP--------------------------------------------------------------------------------------//
 void setup() {
@@ -161,13 +161,13 @@ void sendCardDataToServer(String UIDresultSend) {
   if (WiFi.status() == WL_CONNECTED) {  // Ensure the device is connected to Wi-Fi
 
     // First POST request to getUID.php
-    if (client.connect("192.168.1.105", 80)) {  // Connect to the server
+    if (client.connect("192.168.1.113", 80)) {  // Connect to the server
       // Prepare the POST request
       String postData = "UIDresult=" + UIDresultSend;
 
       // Send HTTP POST request to the server
       client.println("POST /RFID_CARD/getUID.php HTTP/1.1");
-      client.println("Host: 192.168.1.105");  // Replace with your server's IP address
+      client.println("Host: 192.168.1.113");  // Replace with your server's IP address
       client.println("Content-Type: application/x-www-form-urlencoded");
       client.print("Content-Length: ");
       client.println(postData.length());
@@ -183,13 +183,13 @@ void sendCardDataToServer(String UIDresultSend) {
     }
 
     // Second POST request to check_card.php
-    if (client.connect("192.168.1.105", 80)) {  // Connect to the server again
+    if (client.connect("192.168.1.113", 80)) {  // Connect to the server again
       // Reuse the same postData variable or create a new one if needed
       String postData = "UIDresult=" + UIDresultSend;
 
       // Send HTTP POST request to check_card.php
       client.println("POST /RFID_CARD/check_card.php HTTP/1.1");
-      client.println("Host: 192.168.1.105");
+      client.println("Host: 192.168.1.113");
       client.println("Content-Type: application/x-www-form-urlencoded");
       client.print("Content-Length: ");
       client.println(postData.length());
@@ -208,4 +208,3 @@ void sendCardDataToServer(String UIDresultSend) {
     Serial.println("WiFi not connected");
   }
 }
-

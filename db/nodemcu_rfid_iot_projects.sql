@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2024 at 10:59 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Dec 18, 2024 at 04:38 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,23 +30,24 @@ SET time_zone = "+00:00";
 CREATE TABLE `report` (
   `id` int(11) NOT NULL,
   `sid` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `datetime` datetime NOT NULL DEFAULT current_timestamp()
+  `datetime` datetime NOT NULL DEFAULT current_timestamp(),
+  `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `report`
 --
 
-INSERT INTO `report` (`id`, `sid`, `datetime`) VALUES
-(3, 'D3E8BE42', '2024-09-08 21:27:07'),
-(5, 'D3E8BE42', '2024-09-08 21:42:11'),
-(6, '034A2C43', '2024-09-08 21:43:00'),
-(8, 'D3E8BE42', '2024-09-08 22:44:53'),
-(9, '034A2C43', '2024-09-08 22:45:01'),
-(10, 'D3E8BE42', '2024-09-08 22:45:22'),
-(11, '034A2C43', '2024-09-08 22:45:27'),
-(12, '034A2C43', '2024-09-08 22:46:22'),
-(13, 'D3E8BE42', '2024-09-08 22:46:38');
+INSERT INTO `report` (`id`, `sid`, `datetime`, `status`) VALUES
+(1, '06193B97', '2024-12-18 17:21:49', ''),
+(2, '06193B97', '2024-12-18 17:21:53', ''),
+(3, 'C3FE7C00', '2024-12-18 17:21:59', ''),
+(4, 'C3FE7C00', '2024-12-18 17:22:04', ''),
+(5, '06193B97', '2024-12-18 17:22:18', ''),
+(6, '06193B97', '2024-12-18 17:22:28', ''),
+(7, 'C3FE7C00', '2024-12-18 17:22:32', ''),
+(8, 'C3FE7C00', '2024-12-18 17:22:36', ''),
+(9, 'C3FE7C00', '2024-12-18 17:22:39', '');
 
 -- --------------------------------------------------------
 
@@ -59,7 +60,6 @@ CREATE TABLE `table_the_iot_projects` (
   `id` varchar(100) NOT NULL,
   `year_of_study` varchar(100) NOT NULL,
   `class` varchar(100) NOT NULL,
-  `department` varchar(100) NOT NULL,
   `photo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -67,9 +67,9 @@ CREATE TABLE `table_the_iot_projects` (
 -- Dumping data for table `table_the_iot_projects`
 --
 
-INSERT INTO `table_the_iot_projects` (`name`, `id`, `year_of_study`, `class`, `department`, `photo`) VALUES
-('Edouard', '034A2C43', 'Year 3', 'IT-Btech', 'ICT', 'Edouard.jpeg'),
-('Faustin', 'D3E8BE42', 'Year 4', 'IT-Btech', 'ICT', 'Faustin.jpeg');
+INSERT INTO `table_the_iot_projects` (`name`, `id`, `year_of_study`, `class`, `photo`) VALUES
+('John', '06193B97', 'Year 4', 'BIT', 'Mbonyi.jpg'),
+('Fabrice', 'C3FE7C00', 'Year 4', 'BIT', 'WhatsApp Image 2024-12-18 at 12.59.16_e5b0277f.jpg');
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,8 @@ INSERT INTO `table_the_iot_projects` (`name`, `id`, `year_of_study`, `class`, `d
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `password` int(50) NOT NULL,
   `type` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -88,9 +89,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `type`) VALUES
-(1, 'admin', 123, 1),
-(2, 'kalisa', 123, 0);
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `type`) VALUES
+(1, 'Admin', 'admin@gmail.com', 123, 1),
+(2, 'Gatekeeper', 'gatekeeper@gmail.com', 123, 0);
 
 --
 -- Indexes for dumped tables
@@ -123,7 +124,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`

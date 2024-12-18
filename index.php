@@ -1,107 +1,114 @@
-<?php
-	$Write="<?php $" . "UIDresult=''; " . "echo $" . "UIDresult;" . " ?>";
-	file_put_contents('UIDContainer.php',$Write);
-?>
+<?php  
+session_start();   
+$message = "";  
+
+require 'dbconn.php'; 
+
+try  
+{   
+    if(isset($_POST["signin"]))  
+    {  
+        if(empty($_POST["email"]) || empty($_POST["password"]))  
+        {  
+            $message = 'Email and Password are required!';  
+        }  
+        else  
+        {  
+            $query = "SELECT * FROM users WHERE email = :email AND password = :password";  
+            $statement = $conn->prepare($query);  
+            $statement->execute(  
+                array(  
+                    'email'     =>     $_POST["email"],  
+                    'password'  =>     $_POST["password"]  
+                )  
+            );  
+            $count = $statement->rowCount();  
+            if($count > 0)  
+            {  
+                $user = $statement->fetch(PDO::FETCH_ASSOC);
+                $_SESSION["email"] = $_POST['email'];
+
+                if ($user['type'] == 1) {    
+                    header("location:admin/adminDash.php");
+                } else {
+                    header("location:admin/gateDash.php");
+                }     
+            }  
+            else   
+            {  
+                $message = 'Invalid Email or Password ';  
+            }  
+        }  
+    }  
+}  
+catch(PDOException $error)  
+{  
+    $message = $error->getMessage();  
+}  
+?> 
+
+
 
 <!DOCTYPE html>
-<html lang="en">
-<html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta charset="utf-8">
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="login/images/smart-id.png" rel="icon">
-		<script src="js/bootstrap.min.js"></script>
-		<style>
-		html {
-			font-family: Arial;
-			display: inline-block;
-			margin: 0px auto;
-			text-align: center;
-		}
-		.logout a:hover {
-			background-color: #333;
-			color: white;
-		}
+<html lang="en">  
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="styles.css">
+  <title>UTAB - Index</title>
+<style>
+  #mylogo{
+    width: 320px;
+    height: auto;
+    position: absolute;
+    top: 20px;
+    left: 39%;
+  }
+</style>
+</head>
+<body>
+<div class="login-container">
+<img src="logo3.png" alt="UTAB Logo" id="mylogo" class="logo">
+    <header>
+        <!-- <img src="logo.png" alt="UTAB Logo" id="logo" class="logo"> -->
+        <h2 class="text-center">LOGIN</h2>
+      </header>
+      <small class="text-danger"> <?php  echo $message; ?> 
+      </small>       
+        
+  <form method="POST" action="">
+    <div class="form-group">
+      <label for="inputEmail">Email:</label>
+      <input type="email" class="form-control" name="email" placeholder="Enter your email" >
+      
+    </div>
+    
+    <div class="form-group">
+      <label for="inputPassword">Password:</label>
+      <input type="password" class="form-control memberEmail" name="password" placeholder="Enter your password" >
+      
+    </div>
 
-		ul.topnav {
-			list-style-type: none;
-			margin: auto;
-			padding: 0;
-			overflow: hidden;
-			background-color: #4CAF50;
-			width: 70%;
-		}
+    
+    <button type="submit"  name="signin" class="btn btn-primary mb-6 BtnLogin">Login <i class="fas fa-sign-in-alt"></i></button>
+  </form>
+  <div class="sign-up mt-3">
+   Don't have an account? <a href="signup.php">Create Account</a>
+  </div>
+  <div class="forgot-password mt-3">
+    <a href="#">Forgot Password?</a>
+  </div>
+</div>
 
-		ul.topnav li {float: left;}
-
-		ul.topnav li a {
-			display: block;
-			color: white;
-			text-align: center;
-			padding: 14px 16px;
-			text-decoration: none;
-		}
-
-		ul.topnav li a:hover:not(.active) {background-color: #3e8e41;}
-
-		ul.topnav li a.active {background-color: #333;}
-
-		ul.topnav li.right {float: right;}
-
-		@media screen and (max-width: 600px) {
-			ul.topnav li.right, 
-			ul.topnav li {float: none;}
-		}
-		
-		img {
-			size:cover;
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			width: auto; /* Set image width to 100% */
-			max-height: 60vh; /* Limit image height */
-			background: 
-		}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
-
-		.bottom-text {
-			position: absolute;
-			bottom: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			color: #666; /* Desired color */
-			font-style: italic;
-			font-size: small;
-		}
-
-		body{
-			background-image:url("/home_ok.jpg"),
-		}
-
-		</style>
-		
-		<title> NFC-Based Student Smart Card</title>
-	</head>
-	
-	<body>
-		<h2 style="color: olive;">NFC-Based Student Smart Card</h2>
-		<!-- <h3 style="font-style: italic; color: olive;">"Invest in your mind, it pays the best interest." - Benjamin Franklin</h3> -->
-		<ul class="topnav">
-			<li><a class="active" href="index.php">Home</a></li>
-			<li><a href="user data.php">Student Data</a></li>
-			<li><a href="registration.php">Registration</a></li>
-			<li><a href="report.php">Report</a></li>
-			<!-- <li><a href="read tag.php">Student's Info</a></li> -->
-			<li id="logout"style="float: right; background-color: red; ">
-			<a  href="login/logout.php">Logout</a></li>
-		</ul>
-		<br>
-		<h3>Welcome to RP-Musanze College</h3>
-		
-		<img src="img/rpmusanze.jpg" alt="">
-		
-		<!-- <div class="bottom-text">Powered by Giant Electronics group</div> -->
-	</body>
+</body>
 </html>
+
+

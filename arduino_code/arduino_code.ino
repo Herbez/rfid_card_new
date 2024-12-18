@@ -163,13 +163,13 @@ void sendCardDataToServer(String UIDresultSend) {
   if (WiFi.status() == WL_CONNECTED) {  // Ensure the device is connected to Wi-Fi
 
     // First POST request to getUID.php
-    if (client.connect("192.168.77.252", 80)) {  // Connect to the server
+    if (client.connect("192.168.75.252", 80)) {  // Connect to the server
       // Prepare the POST request
       String postData = "UIDresult=" + UIDresultSend;
 
       // Send HTTP POST request to the server
-      client.println("POST /RFID_CARD/getUID.php HTTP/1.1");
-      client.println("Host: 192.168.77.252");  // Replace with your server's IP address
+      client.println("POST /RFID_CARD/admin/getUID.php HTTP/1.1");
+      client.println("Host: 192.168.75.252");  // Replace with your server's IP address
       client.println("Content-Type: application/x-www-form-urlencoded");
       client.print("Content-Length: ");
       client.println(postData.length());
@@ -185,13 +185,13 @@ void sendCardDataToServer(String UIDresultSend) {
     }
 
     // Second POST request to check_card.php
-    if (client.connect("192.168.77.252", 80)) {  // Connect to the server again
+    if (client.connect("192.168.75.252", 80)) {  // Connect to the server again
       // Reuse the same postData variable or create a new one if needed
       String postData = "UIDresult=" + UIDresultSend;
 
       // Send HTTP POST request to check_card.php
-      client.println("POST /RFID_CARD/check_card.php HTTP/1.1");
-      client.println("Host: 192.168.77.252");
+      client.println("POST /RFID_CARD/admin/check_card.php HTTP/1.1");
+      client.println("Host: 192.168.75.252");
       client.println("Content-Type: application/x-www-form-urlencoded");
       client.print("Content-Length: ");
       client.println(postData.length());

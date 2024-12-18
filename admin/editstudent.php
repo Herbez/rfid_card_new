@@ -3,6 +3,9 @@ session_start();
 
 require 'dbconn.php'; 
 
+// Get the student ID from the query parameter
+$id = $_GET['id'] ?? '';
+
 if (!isset($_SESSION["email"])) {
   header("Location: ../index.php"); 
   exit();
@@ -41,7 +44,7 @@ file_put_contents('UIDContainer.php',$Write);
   <meta name="description" content="">
   <meta name="author" content="">
   <link href="img/logo.png" rel="icon">
-  <title>UTAB - Add Student</title>
+  <title>UTB - Edit Student</title>
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="css/ruang-admin.min.css" rel="stylesheet">
@@ -73,25 +76,44 @@ file_put_contents('UIDContainer.php',$Write);
 
         <!-- End of TopBar   -->
 
-        <!-- Container Fluid-->
-        <div class="container-fluid" id="container-wrapper">
-        
-        <!-- content -->
-        
-        <div class="card-body">
-            <form action="insertDB.php" method="post" enctype="multipart/form-data" id="studentForm">
+        <?php    
+        // Get the student ID from the query parameter
+            $id = $_GET['id'] ?? '';
+
+            // Prepare the SQL query to select data from the table
+            $sql = "SELECT * FROM table_the_iot_projects WHERE id = :id";
+            $stmt = $conn->prepare($sql);
+            
+            // Bind the ID parameter to the query
+            $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+            
+            // Execute the query
+            $stmt->execute();
+            
+            // Fetch the results
+            if ($stmt->rowCount() > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    // Assign row values to variables
+                    $id = $row['id'];
+                    $name = $row['name'];
+                    $class = $row['class'];
+                    $year_of_study = $row['year_of_study'];
+                    $photo = $row['photo'];
+            ?>
+            <form  method="post" enctype="multipart/form-data" id="studentForm">
                 <!-- Card ID Field -->
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label text-right">Card ID</label>
                     <div class="col-sm-7">
-                        <textarea 
+                        <input  
                             name="id" 
                             id="getUID" 
                             class="form-control" 
                             placeholder="Please Scan your Card / Key Chain to display ID" 
                             rows="1" cols="1" 
-            
-                            required></textarea>
+                            value="<?php echo $row['id'];?>"
+                            disabled
+                            required>
                         <small class="text-danger validation-message" id="cardIdMessage"></small>
                     </div>
                 </div>
@@ -99,13 +121,14 @@ file_put_contents('UIDContainer.php',$Write);
                 <!-- Name Field -->
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label text-right">Name</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-7">
                         <input 
                             type="text" 
                             class="form-control" 
                             name="name" 
+                            value="<?php echo $row['name'];?>"
                             placeholder="Enter Student Name" 
-                            style="width: 600px;" 
+                            style="width: 655px;" 
                             pattern="[A-Za-z\s]+" 
                             title="Name must contain only letters and spaces." 
                             required>
@@ -121,9 +144,10 @@ file_put_contents('UIDContainer.php',$Write);
                             type="text" 
                             class="form-control" 
                             name="class" 
+                            value="<?php echo $row['class'];?>"
                             placeholder="Class Name" 
-                            style="width: 600px;" 
-                            
+                            style="width: 655px;"
+                            pattern="[A-Za-z\s]+" 
                             title="Class name must contain only letters and spaces." 
                             required>
                         <small class="text-danger validation-message" id="classMessage"></small>
@@ -132,34 +156,55 @@ file_put_contents('UIDContainer.php',$Write);
 
                 <!-- Year of Study Field -->
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-right">Year Of Study</label>
+                    <label class="col-sm-3 col-form-label text-right">Year of study</label>
                     <div class="col-sm-7">
                         <select name="year_of_study" class="form-control">
-                            <option value="Year 4">Year 4</option>
-                            <option value="Year 3">Year 3</option>
-                            <option value="Year 2">Year 2</option>
-                            <option value="Year 1">Year 1</option>
+                            <option value="Year 4" <?= $row['year_of_study'] === 'Year 4' ? 'selected' : ''; ?>>Year 4</option>
+                            <option value="Year 3" <?= $row['year_of_study'] === 'Year 3' ? 'selected' : ''; ?>>Year 3</option>
+                            <option value="Year 2" <?= $row['year_of_study'] === 'Year 2' ? 'selected' : ''; ?>>Year 2</option>
+                            <option value="Year 1" <?= $row['year_of_study'] === 'Year 1' ? 'selected' : ''; ?>>Year 1</option>
                         </select>
                     </div>
                 </div>
 
+
                 <!-- Photo Upload Field -->
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-right">Photo</label>
+                    <label class="col-sm-3 col-form-label text-right"></label>
                     <div class="col-sm-9">
+                        <!-- Display the current photo if available -->
+                        <?php if(!empty($row['photo'])): ?>
+                            <img src="uploads/<?php echo $row['photo']; ?>" alt="Current Photo" class="img-thumbnail mb-2" style="max-width: 100px;">
+                        <?php endif; ?>
+                        
+                        <!-- File input field -->
                         <input type="file" id="file-input" name="photo" class="form-control-file" required>
-                        <small class="text-danger validation-message" id="photoMessage"></small>
+                        <small class="text-danger validation-message" id="photoMessage" ></small>
                     </div>
                 </div>
+
 
                 <!-- Submit Button -->
                 <div class="form-group row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9">
-                        <button type="submit" name="addcard" class="btn btn-primary">Add Card</button>
+                        <button type="submit" name="updatecard" class="btn btn-primary">Update Card</button>
                     </div>
                 </div>
             </form>
+            <?php                }
+            } else {
+                echo "<p>No record found for ID: $id</p>";
+            }    
+        ?>
+
+        <!-- Container Fluid-->
+        <div class="container-fluid" id="container-wrapper">
+        
+        <!-- content -->
+        
+        <div class="card-body">
+
         </div>
 
         </div>
@@ -193,6 +238,14 @@ file_put_contents('UIDContainer.php',$Write);
         document.getElementById('nameMessage').innerText = "";
     }
 
+    // Class Validation
+    const className = document.querySelector('[name="class"]');
+    if (!/^[A-Za-z\s]+$/.test(className.value)) {
+        document.getElementById('classMessage').innerText = "Class name must contain only letters and spaces.";
+        isValid = false;
+    } else {
+        document.getElementById('classMessage').innerText = "";
+    }
 
     // Prevent Form Submission if Validation Fails
     if (!isValid) {
@@ -212,3 +265,41 @@ file_put_contents('UIDContainer.php',$Write);
 
 </html>
 
+<?php
+require('dbconn.php');
+
+if (isset($_POST['updatecard'])) {
+    $id = $_GET['id'];
+    $name = $_POST['name'];
+    $year_of_study = $_POST['year_of_study'];
+    $photo = $_FILES['photo']['name'];
+
+    // Move uploaded file to the uploads folder
+    if (!empty($photo)) {
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
+        move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
+    }
+
+    // Update query
+    $sql = "UPDATE table_the_iot_projects SET name = :name, year_of_study = :year_of_study, photo = :photo WHERE id = :id";
+    $stmt = $conn->prepare($sql);
+    
+    // Bind parameters
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':year_of_study', $year_of_study);
+    $stmt->bindParam(':photo', $photo);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    
+    if ($stmt->execute()) {
+        echo "<script type='text/javascript'> alert('Student Card Updated');
+            window.location.href='allstudent.php';
+        </script>";
+        exit();
+    } else {
+        echo "<script type='text/javascript'>alert('Student Card Not Updated');</script>";
+        header("Refresh:0.01; url=allstudent.php");
+        exit();
+    }
+}
+?>

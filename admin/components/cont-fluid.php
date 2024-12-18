@@ -6,7 +6,7 @@
           <div class="row align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-uppercase mb-1">Total Students</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $studentCount ?></div>
 
             </div>
             <div class="col-auto">

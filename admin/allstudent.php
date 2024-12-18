@@ -26,7 +26,7 @@ $userid=$_SESSION["email"];
  
     
     // Fetch all users to display in the table
-    $sql_all_users = "SELECT * FROM table_the_iot_projects";
+    $sql_all_users = "SELECT * FROM table_the_iot_projects order by id desc";
     $query_all = $conn->prepare($sql_all_users);
     $query_all->execute();
     $all_users = $query_all->fetchAll(PDO::FETCH_ASSOC); // Multiple rows
@@ -44,7 +44,7 @@ $userid=$_SESSION["email"];
   <meta name="description" content="">
   <meta name="author" content="">
   <link href="img/logo.png" rel="icon">
-  <title>UTB - All Student</title>
+  <title>UTAB - All Student</title>
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="css/ruang-admin.min.css" rel="stylesheet">
@@ -101,18 +101,18 @@ $userid=$_SESSION["email"];
                                     <td><b><?php echo htmlspecialchars($row['class']); ?></b></td>
                                     <td>
                                     <?php if (!empty($row['photo'])) : ?>
-                                        <img src="uploads/<?php echo htmlspecialchars($row['photo']); ?>" alt="User Photo" style="width: 100px; height: 100px; object-fit: cover;">
+                                        <img src="uploads/<?php echo htmlspecialchars($row['photo']); ?>" alt="User Photo" style="width: 80px; height: 80px; object-fit: cover;">
                                     <?php else : ?>
                                         <span>No Photo</span>
                                     <?php endif; ?>
                                     </td>
                                     <td>
                                         <!-- Edit Icon -->
-                                        <a href="edit_user.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary">
+                                        <a href="editstudent.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <!-- Delete Icon -->
-                                        <a href="delete_user.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">
+                                        <a href="delete_student.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </td>

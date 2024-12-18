@@ -33,9 +33,20 @@ function getUserCount($conn) {
   return ($row) ? $row['userCount'] : 0;
 }
 
+// Function to get the count of Student
+function getStudentCount($conn) {
+  $query = "SELECT COUNT(*) AS studentCount FROM table_the_iot_projects";
+  $stmt = $conn->query($query);
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  
+  return ($row) ? $row['studentCount'] : 0;
+}
+
 
 // Example usage
 $userCount = getUserCount($conn);
+
+$studentCount = getStudentCount($conn);
 
 ?>
 
@@ -50,7 +61,7 @@ $userCount = getUserCount($conn);
   <meta name="description" content="">
   <meta name="author" content="">
   <link href="img/logo.png" rel="icon">
-  <title>UTB - Dashboard</title>
+  <title>UTAB - Dashboard</title>
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="css/ruang-admin.min.css" rel="stylesheet">

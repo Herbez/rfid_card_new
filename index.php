@@ -60,13 +60,16 @@ catch(PDOException $error)
   <link rel="stylesheet" href="styles.css">
   <title>UTAB - Index</title>
 <style>
-  #mylogo{
-    width: 320px;
-    height: auto;
-    position: absolute;
-    top: 20px;
-    left: 39%;
-  }
+    #mylogo{
+      width: 320px;
+      height: auto;
+      position: absolute;
+      top: 30px;
+      left: 39%;
+    }
+    .login-container{
+      margin-top: 60px;
+    }
 </style>
 </head>
 <body>
@@ -96,7 +99,7 @@ catch(PDOException $error)
     <button type="submit"  name="signin" class="btn btn-primary mb-6 BtnLogin">Login <i class="fas fa-sign-in-alt"></i></button>
   </form>
   <div class="sign-up mt-3">
-   Don't have an account? <a href="signup.php">Create Account</a>
+   Don't have an account? <a href="register.php">Create Account</a>
   </div>
   <div class="forgot-password mt-3">
     <a href="#">Forgot Password?</a>

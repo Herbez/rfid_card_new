@@ -25,17 +25,20 @@
 			thead { color: #FFFFFF; }
 		</style>
 		
-		<title>NFC-Based Student Smart Card</title>
+		<title>Student RFID_Card</title>
 	</head>
 	
 	<body>
-	<h2 style="color: olive;">NFC-Based Student Smart Card</h2>
+		<!-- <h2 align="center">ACCESS WAVE CSTroll</h2> -->
+		<h2  style="text-align: center;">Student RFID_Card</h2>
 		<ul class="topnav">
-			<li><a href="index.php">Home</a></li>
+			<!-- <li><a href="index.php">Home</a></li> -->
 			<li><a href="user data.php">Students Data</a></li>
-			<li><a href="registration.php">Registration</a></li>
-			<li><a class="active" href="report.php">Report</a></li>
-			<li id="logout"style="float: right; background-color: red; "><a href="login/logout.php">Logout</a></li>
+			<li><a  href="registration.php">Registration</a></li>
+			<li><a href="read tag.php">Read Card</a></li>
+			<li><a class="active" href="report.php">Attendance</a></li>
+			<!-- <li id="logout"style="float: right; background-color: red; ">
+			<a  href="login/logout.php">Logout</a></li> -->
 		</ul>
 		<br>
 
@@ -59,11 +62,13 @@
 					<tr bgcolor="#10a0c5" color="#FFFFFF">
 					  <th>Name</th>
 					  <th>Card ID</th>
-					  <th>Year Of Study</th>
+					  <!-- <th>Year Of Study</th> -->
 					  <th>Class</th>
-					  <th>Department</th>
+					  <!-- <th>Department</th> -->
 					  <th>Photo</th>
 					  <th>Check Time</th>
+					  <th>Status</th>
+
 					</tr>
 				  </thead>
 				  <tbody>
@@ -71,40 +76,47 @@
 				   include 'database.php';
 				   $pdo = Database::connect();
 
-				   if (isset($_GET['selected_date'])) {
-					   $selected_date = $_GET['selected_date'];
+				   
+					if (isset($_GET['selected_date'])) {
+						$selected_date = $_GET['selected_date'];
 
-					   // Query to fetch data for the selected date
-					   $sql = "SELECT * 
-							   FROM table_the_iot_projects t
-							   LEFT JOIN report r 
-							   ON t.id = r.sid 
-							   WHERE DATE(datetime) = ?
-							   ORDER BY datetime DESC";
+						// Query to fetch all students with their attendance for the selected date
+						$sql = "SELECT t.id AS sid, t.name, t.class, t.photo, r.datetime 
+								FROM table_the_iot_projects t
+								LEFT JOIN report r ON t.id = r.sid AND DATE(r.datetime) = ?
+								ORDER BY t.name";
 
-					   $q = $pdo->prepare($sql);
-					   $q->execute([$selected_date]);
-					   $records = $q->fetchAll(PDO::FETCH_ASSOC);
+						$q = $pdo->prepare($sql);
+						$q->execute([$selected_date]);
+						$records = $q->fetchAll(PDO::FETCH_ASSOC);
 
-					   if (count($records) > 0) {
-						   foreach ($records as $row) {
-							   echo '<tr>';
-							   echo '<td>'. $row['name'] . '</td>';
-							   echo '<td>'. $row['sid'] . '</td>';
-							   echo '<td>'. $row['year_of_study'] . '</td>';
-							   echo '<td>'. $row['class'] . '</td>';
-							   echo '<td>'. $row['department'] . '</td>';
-							   echo '<td><img src="uploads/' . $row['photo'] . '" alt="Student Photo" style="width:25px; height:auto;"></td>';
-							   echo '<td>'. $row['datetime'] . '</td>';
-							   echo '</tr>';
-						   }
-					   } else {
-						   // No data found message
-						   echo '<tr><td colspan="7">No report found for the selected date.</td></tr>';
-					   }
-				   } else {
-					   echo '<tr><td colspan="7">Please select a date to view the report.</td></tr>';
-				   }
+						if (count($records) > 0) {
+							foreach ($records as $row) {
+								echo '<tr>';
+								echo '<td>' . htmlspecialchars($row['name']) . '</td>';
+								echo '<td>' . htmlspecialchars($row['sid']) . '</td>';
+								echo '<td>' . htmlspecialchars($row['class']) . '</td>';
+								echo '<td><img src="uploads/' . htmlspecialchars($row['photo']) . '" alt="Student Photo" style="width:25px; height:auto;"></td>';
+								echo '<td>' . ($row['datetime'] ? htmlspecialchars($row['datetime']) : '-----') . '</td>';
+								
+								// Logic to check if the student is present or absent
+								if (!empty($row['datetime'])) {
+									echo '<td style="color: green;">Present</td>';
+								} else {
+									echo '<td style="color: red;">Absent</td>';
+								}
+
+								echo '</tr>';
+							}
+						} else {
+							// No data found message
+							echo '<tr><td colspan="7">No report found for the selected date.</td></tr>';
+						}
+					} else {
+						echo '<tr><td colspan="7">Please select a date to view the report.</td></tr>';
+					}
+					
+
 
 				   Database::disconnect();
 				  ?>

@@ -80,12 +80,12 @@
 			
 		 
 			<form class="form-horizontal" action="user data edit tb.php?id=<?php echo $id ?>" method="post" enctype="multipart/form-data">
-				<div class="control-group">
+				<!-- <div class="control-group">
 					<label class="control-label">ID</label>
 					<div class="controls">
 						<input name="id" type="text" placeholder="" value="<?php echo htmlspecialchars($data['id']); ?>" readonly>
 					</div>
-				</div>
+				</div> -->
 
 				<div class="control-group">
 					<label class="control-label">Name</label>
@@ -94,7 +94,7 @@
 					</div>
 				</div>
 
-				<div class="control-group">
+				<!-- <div class="control-group">
 					<label class="control-label">Year Of Study</label>
 					<div class="controls">
 						<select name="year_of_study" id="mySelect" required>
@@ -105,7 +105,7 @@
 							
 						</select>
 					</div>
-				</div>
+				</div> -->
 
 				<div class="control-group">
 					<label class="control-label">Class</label>
@@ -114,12 +114,12 @@
 					</div>
 				</div>
 
-				<div class="control-group">
+				<!-- <div class="control-group">
 					<label class="control-label">Department</label>
 					<div class="controls">
 						<input name="department" type="text" placeholder="" value="<?php echo htmlspecialchars($data['department']); ?>" required>
 					</div>
-				</div>
+				</div> -->
 
 				<div class="control-group">
 					<label class="control-label">Photo</label>

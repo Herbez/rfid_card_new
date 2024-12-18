@@ -18,9 +18,9 @@
 		$msg = "Dear student, you are not registered yet.ask for a help !!!";
 		$data['id']=$id;
 		$data['name']="--------";
-		$data['year_of_study']="--------";
+		// $data['year_of_study']="--------";
 		$data['class']="--------";
-		$data['department']="--------";
+		// $data['department']="--------";
 		$data['photo']="--------";
 	} else {
 		$msg = null;
@@ -71,21 +71,21 @@
 									<td style="font-weight:bold">:</td>
 									<td align="left"><?php echo $data['name'];?></td>
 								</tr>
-								<tr>
+								<!--<tr>
 									<td align="left" class="lf">Year Of Study</td>
 									<td style="font-weight:bold">:</td>
 									<td align="left"><?php echo $data['year_of_study'];?></td>
-								</tr>
+								</tr> -->
 								<tr bgcolor="#f2f2f2">
 									<td align="left" class="lf">Class</td>
 									<td style="font-weight:bold">:</td>
 									<td align="left"><?php echo $data['class'];?></td>
 								</tr>
-								<tr>
+								<!-- <tr>
 									<td align="left" class="lf">Department</td>
 									<td style="font-weight:bold">:</td>
 									<td align="left"><?php echo $data['department'];?></td>
-								</tr>
+								</tr> -->
 
 							</table>
 						</td>

@@ -64,20 +64,21 @@
 		}
 		</style>
 		
-		<title>NFC-Based Student Smart Card</title>
+		<title>Student RFID_Card</title>
 	</head>
 	
 	<body>
 
 		<!-- <h2 align="center">ACCESS WAVE CSTroll</h2> -->
-		<h2  style="color: olive; text-align: center;">NFC-Based Student Smart Card</h2>
+		<h2  style="text-align: center;">Student RFID_Card</h2>
 		<ul class="topnav">
-			<li><a href="index.php">Home</a></li>
+			<!-- <li><a href="index.php">Home</a></li> -->
 			<li><a href="user data.php">Students Data</a></li>
 			<li><a class="active" href="registration.php">Registration</a></li>
-			<li><a href="report.php">Report</a></li>
-			<li id="logout"style="float: right; background-color: red; ">
-			<a  href="login/logout.php">Logout</a></li>
+			<li><a href="read tag.php">Read Card</a></li>
+			<li><a href="report.php">Attendance</a></li>
+			<!-- <li id="logout"style="float: right; background-color: red; ">
+			<a  href="login/logout.php">Logout</a></li> -->
 		</ul>
 
 		<div class="container">
@@ -102,7 +103,7 @@
 						</div>
 					</div>
 					
-					<div class="control-group">
+					<!-- <div class="control-group">
 						<label class="control-label">Year Of Study</label>
 						<div class="controls">
 							<select name="year_of_study">
@@ -112,7 +113,7 @@
 								<option value="Year 1">Year 1</option>
 							</select>
 						</div>
-					</div>
+					</div> -->
 		
 					
 					<div class="control-group">
@@ -122,12 +123,12 @@
 						</div>
 					</div>
 					
-					<div class="control-group">
+					<!-- <div class="control-group">
 						<label class="control-label">Department</label>
 						<div class="controls">
 							<input name="department" type="text"  placeholder="" required>
 						</div>
-					</div>
+					</div> -->
 
 					<div class="control-group">
 						<label class="control-label">Photo</label>

@@ -4,9 +4,9 @@ require 'database.php';
 if (!empty($_POST)) {
     $id = $_POST['id'];
     $name = $_POST['name'];
-    $year_of_study = $_POST['year_of_study'];
+    // $year_of_study = $_POST['year_of_study'];
     $class = $_POST['class'];
-    $department = $_POST['department'];
+    // $department = $_POST['department'];
 
     // Handle file upload
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
@@ -27,9 +27,11 @@ if (!empty($_POST)) {
 
     // Update the database record
     $pdo = Database::connect();
-    $sql = "UPDATE table_the_iot_projects SET name = ?, year_of_study = ?, class = ?, department = ?, photo = ? WHERE id = ?";
+    // $sql = "UPDATE table_the_iot_projects SET name = ?, year_of_study = ?, class = ?, department = ?, photo = ? WHERE id = ?";
+    $sql = "UPDATE table_the_iot_projects SET name = ?, class = ?, photo = ? WHERE id = ?";
     $q = $pdo->prepare($sql);
-    $q->execute(array($name, $year_of_study, $class, $department, $photo, $id));
+    // $q->execute(array($name, $year_of_study, $class, $department, $photo, $id));
+    $q->execute(array($name, $class, $photo, $id));
 
     Database::disconnect();
 

@@ -65,23 +65,24 @@
 		}
 		</style>
 		
-		<title>NFC-Based Student Smart Card</title>
+		<title>Student RFID_Card</title>
 	</head>
 	
 	<body>
-	<h2 style="color: olive;">NFC-Based Student Smart Card</h2>
+	<h2  style="text-align: center;">Student RFID_Card</h2>
 		<ul class="topnav">
-			<h4 style="float: left;color: white; margin-left:10px;margin-top:15px; ">	GATE KEEPER</h4>
-			<!-- <li><a href="user data.php">student Data</a></li>
-			<li><a href="registration.php">Registration</a></li> -->
-			<!-- <li><a class="active" href="read tag.php">Read student's card</a></li> -->
-			<li id="logout"style="float: right; background-color: red; ">
-			<a  href="login/logout.php">Logout</a></li>
+			<!-- <li><a href="index.php">Home</a></li> -->
+			<li><a href="user data.php">Students Data</a></li>
+			<li><a  href="registration.php">Registration</a></li>
+			<li><a class="active" href="read tag.php">Read Card</a></li>
+			<li><a href="report.php">Attendance</a></li>
+			<!-- <li id="logout"style="float: right; background-color: red; ">
+			<a  href="login/logout.php">Logout</a></li> -->
 		</ul>
 		
 		<br>
 		
-		<h3 align="center" id="blink">Please Scan Your student Card to Display Credentials</h3>
+		<!-- <h3 align="center" id="blink">Please Scan Your student Card to Display Credentials</h3> -->
 		
 		<p id="getUID" hidden></p>
 		
@@ -110,21 +111,21 @@
 									<td style="font-weight:bold">:</td>
 									<td align="left">--------</td>
 								</tr>
-								<tr>
+								<!-- <tr>
 									<td align="left" class="lf">Year Of Study</td>
 									<td style="font-weight:bold">:</td>
 									<td align="left">--------</td>
-								</tr>
+								</tr> -->
 								<tr bgcolor="#f2f2f2">
 									<td align="left" class="lf">Class</td>
 									<td style="font-weight:bold">:</td>
 									<td align="left">--------</td>
 								</tr>
-								<tr>
+								<!-- <tr>
 									<td align="left" class="lf">Department</td>
 									<td style="font-weight:bold">:</td>
 									<td align="left">--------</td>
-								</tr>
+								</tr> -->
 
 								
 							</table>

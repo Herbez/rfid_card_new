@@ -61,18 +61,19 @@
 		
 		</style>
 		
-		<title>NFC-Based Student Smart Card</title>
+		<title>Student RFID_Card</title>
 	</head>
 	
 	<body>
-	<h2 style="color: olive;">NFC-Based Student Smart Card</h2>
+	<h2 style="color: olive;">Student RFID_Card</h2>
 		<ul class="topnav">
-			<li><a href="index.php">Home</a></li>
+			<!-- <li><a href="index.php">Home</a></li> -->
 			<li><a class="active" href="user data.php">Students Data</a></li>
 			<li><a href="registration.php">Registration</a></li>
-			<li><a href="report.php">Report</a></li>
-			<li id="logout"style="float: right; background-color: red; ">
-			<a  href="login/logout.php">Logout</a></li>
+			<li><a href="read tag.php">Read Card</a></li>
+			<li><a href="report.php">Attendance</a></li>
+			<!-- <li id="logout"style="float: right; background-color: red; ">
+			<a  href="login/logout.php">Logout</a></li> -->
 		</ul>
 		<br>
 		<div class="container">
@@ -85,9 +86,9 @@
                     <tr bgcolor="#10a0c5" color="#FFFFFF">
                       <th>Name</th>
                       <th>Card ID</th>
-					  <th>Gender</th>
+					  <!-- <th>Gender</th> -->
 					  <th>Class</th>
-                      <th>Mobile Number</th>
+                      <!-- <th>Mobile Number</th> -->
 					  <th >IMAGE</th>
 					  <!-- <th>Laptop's Serial</th>
 					  <th>Year of study</th> -->
@@ -103,10 +104,10 @@
                             echo '<tr>';
                             echo '<td>'. $row['name'] . '</td>';
                             echo '<td>'. $row['id'] . '</td>';
-                            echo '<td>'. $row['year_of_study'] . '</td>';
+                            // echo '<td>'. $row['year_of_study'] . '</td>';
 							echo '<td>'. $row['class'] . '</td>';
-							echo '<td>'. $row['department'] . '</td>';
-							echo '<td><img src="uploads/' . $row['photo'] . '" alt="Student Photo" style="width:100px; height:auto;"></td>';
+							// echo '<td>'. $row['department'] . '</td>';
+							echo '<td><img src="uploads/' . $row['photo'] . '" alt="Student Photo" style="width:50px; height:auto;"></td>';
 							// echo '<td>'. $row['serial'] . '</td>';
 							// echo '<td>'. $row['year'] . '</td>';
 							echo '<td><a class="btn btn-success" href="user data edit page.php?id='.$row['id'].'">Edit</a>';

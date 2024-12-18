@@ -6,13 +6,14 @@ require('dbconn.php');
     
         $name = $_POST['name'] ?? '';
         $id = $_POST['id'] ?? '';
-        $year_of_study = $_POST['year_of_study'] ?? '';
+        // $year_of_study = $_POST['year_of_study'] ?? '';
 		$class = $_POST['class'] ?? '';
-		$department = $_POST['department'] ?? '';
+		// $department = $_POST['department'] ?? '';
         $photo = $_FILES['photo']['name'] ?? '';
         $photo_tmp = $_FILES['photo']['tmp_name'] ?? '';
-    
-        if (empty($name) || empty($id) || empty($year_of_study) || empty($class) || empty($department)  || empty($photo)) {
+
+        if (empty($name) || empty($id) || empty($class)  || empty($photo)) {
+        // if (empty($name) || empty($id) || empty($year_of_study) || empty($class) || empty($department)  || empty($photo)) {
             echo "<script type='text/javascript'>alert('Please fill all fields')</script>";
         } else {
             // Upload photo to the server (ensure the 'uploads' directory exists)

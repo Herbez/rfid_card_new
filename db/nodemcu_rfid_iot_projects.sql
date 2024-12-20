@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2024 at 04:38 PM
+-- Generation Time: Dec 19, 2024 at 03:23 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -69,7 +69,7 @@ CREATE TABLE `table_the_iot_projects` (
 
 INSERT INTO `table_the_iot_projects` (`name`, `id`, `year_of_study`, `class`, `photo`) VALUES
 ('John', '06193B97', 'Year 4', 'BIT', 'Mbonyi.jpg'),
-('Fabrice', 'C3FE7C00', 'Year 4', 'BIT', 'WhatsApp Image 2024-12-18 at 12.59.16_e5b0277f.jpg');
+('Fabrice', 'C3FE7C00', 'Year 3', 'BIT', 'maria.jpg');
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `type`) VALUES
 (1, 'Admin', 'admin@gmail.com', 123, 1),
-(2, 'Gatekeeper', 'gatekeeper@gmail.com', 123, 0);
+(2, 'Gatekeeper', 'gatekeeper@gmail.com', 123, 0),
+(4, 'dan', 'danny@gmail.com', 123, 0);
 
 --
 -- Indexes for dumped tables
@@ -130,7 +131,7 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
